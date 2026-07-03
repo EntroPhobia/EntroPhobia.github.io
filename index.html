@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熵惧科技 | Entrophobia - 中澳科创双向孵化平台</title>
+    <meta name="description" content="熵惧科技 - 专注中澳高层次人才与科创项目双向落地的跨境科技平台">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0a1628;
+            --primary-light: #1a2d4a;
+            --accent: #00d4aa;
+            --accent-light: #00f5c4;
+            --text: #e8ecf1;
+            --text-muted: #8892a0;
+            --bg: #070d18;
+            --card-bg: rgba(26, 45, 74, 0.5);
+            --border: rgba(0, 212, 170, 0.15);
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(7, 13, 24, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent), #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--accent); }
+        
+        .lang-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .lang-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(transparent, var(--bg));
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-light), #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #0099ff);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        /* Section Basics */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 170, 0.3);
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 153, 255, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 212, 170, 0.02), transparent);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Philosophy Section */
+        .philosophy-section {
+            text-align: center;
+        }
+        
+        .philosophy-quote {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 500;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--text);
+            font-style: italic;
+        }
+        
+        .philosophy-quote .mark {
+            color: var(--accent);
+            font-style: normal;
+        }
+        
+        .philosophy-explain {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .phi-item {
+            padding: 1.5rem;
+        }
+        
+        .phi-item h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .phi-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Ecosystem Section */
+        .ecosystem-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 212, 170, 0.03), transparent);
+        }
+        
+        .ecosystem-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .eco-node {
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        
+        .eco-node:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .eco-center {
+            padding: 2rem 3rem;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 153, 255, 0.1));
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent-light);
+        }
+        
+        .pathways {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .pathway-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+        }
+        
+        .pathway-item .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pathway-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .pathway-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+        }
+        
+        .contact-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+        
+        .contact-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .contact-email {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-locations {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .location-item {
+            text-align: center;
+        }
+        
+        .location-item h5 {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .location-item p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .pathways {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            section { padding: 4rem 1.5rem; }
+            
+            .contact-card { padding: 2rem 1.5rem; }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+        
+        [data-en] { display: none; }
+        [data-zh] { display: inline; }
+        
+        html.en [data-en] { display: inline; }
+        html.en [data-zh] { display: none; }
+        
+        html.en .zh-only { display: none !important; }
+        html:not(.en) .en-only { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Entrophobia</div>
+            <ul class="nav-links">
+                <li><a href="#home" data-zh>首页</a><a href="#home" data-en>Home</a></li>
+                <li><a href="#services" data-zh>业务板块</a><a href="#services" data-en>Services</a></li>
+                <li><a href="#ecosystem" data-zh>生态联盟</a><a href="#ecosystem" data-en>Ecosystem</a></li>
+                <li><a href="#about" data-zh>关于我们</a><a href="#about" data-en>About</a></li>
+                <li><a href="#contact" data-zh>联系我们</a><a href="#contact" data-en>Contact</a></li>
+                <li><button class="lang-toggle" onclick="toggleLang()">EN / 中</button></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge animate-in delay-1">
+                <span data-zh>中澳科创双向孵化平台</span>
+                <span data-en>China-Australia Sci-Tech Incubation Platform</span>
+            </div>
+            <h1 class="animate-in delay-2">
+                <span data-zh>在混沌中建立秩序</span>
+                <span data-en>Building Order from Chaos</span>
+                <br>
+                <span class="highlight" data-zh>做跨境科创的摆渡人</span>
+                <span class="highlight" data-en>Bridging Innovation Across Borders</span>
+            </h1>
+            <p class="hero-subtitle animate-in delay-3">
+                <span data-zh>扎根澳洲，链动中国。专注中澳高层次人才与科创项目双向落地的跨境科技平台。</span>
+                <span data-en>Rooted in Australia, connected to China. A cross-border tech platform for high-level talent and innovation exchange.</span>
+            </p>
+            <div class="hero-cta animate-in delay-4">
+                <a href="#services" class="btn btn-primary">
+                    <span data-zh>了解业务</span>
+                    <span data-en>Our Services</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span data-zh>联系合作</span>
+                    <span data-en>Get in Touch</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-header">
+            <div class="section-label" data-zh>四大核心引擎</div>
+            <div class="section-label" data-en>FOUR CORE ENGINES</div>
+            <h2 class="section-title" data-zh>全链路跨境服务</h2>
+            <h2 class="section-title" data-en>Full-Stack Cross-Border Services</h2>
+            <p class="section-desc" data-zh>以四大业务板块驱动，系统化推进中澳科创资源的跨境流通与价值释放</p>
+            <p class="section-desc" data-en>Four business verticals driving systematic cross-border flow of tech innovation resources</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3 data-zh>高端智库与猎头</h3>
+                <h3 data-en>Talent & Think Tank</h3>
+                <p data-zh>依托澳洲学联资源，构建八大名校人才数据库，为国内头部企业与科研机构提供高端人才猎聘服务。</p>
+                <p data-en>Leveraging Australian university networks to build an elite talent database, connecting top Chinese enterprises and research institutions with high-caliber professionals.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏆</div>
+                <h3 data-zh>创新赛事与活动</h3>
+                <h3 data-en>Events & Competitions</h3>
+                <p data-zh>举办中澳创新创业大赛及科技创新峰会，打造优质项目入口与品牌高地。</p>
+                <p data-en>Hosting China-Australia innovation competitions and tech summits, creating a premium gateway for projects and brand building.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💡</div>
+                <h3 data-zh>创投基金与孵化器</h3>
+                <h3 data-en>Venture & Incubation</h3>
+                <p data-zh>在国内落地实体孵化器，对接政府海外人才引进政策与资金支持，布局早期天使投资。</p>
+                <p data-en>Operating physical incubators in China, connecting with government talent policies and funding, with early-stage angel investment portfolio.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌏</div>
+                <h3 data-zh>跨境企服与技术对接</h3>
+                <h3 data-en>Cross-Border Services</h3>
+                <p data-zh>助力中国企业拓展澳洲市场，同时协助澳洲科技企业对接中国供应链与产业资源，实现双向赋能。</p>
+                <p data-en>Empowering Chinese companies in the Australian market while connecting Australian tech firms with Chinese supply chains and industrial resources.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section id="ecosystem" class="ecosystem-section">
+        <div class="section-header">
+            <div class="section-label" data-zh>开放生态</div>
+            <div class="section-label" data-en>OPEN ECOSYSTEM</div>
+            <h2 class="section-title" data-zh>熵惧科创生态联盟</h2>
+            <h2 class="section-title" data-en>Entrophobia Innovation Alliance</h2>
+            <p class="section-desc" data-zh>以开放生态理念，协同高校学联、同业机构、政府部门与专业服务商</p>
+            <p class="section-desc" data-en>An open ecosystem collaborating with universities, institutions, government agencies and professional service providers</p>
+        </div>
+        
+        <div class="ecosystem-visual">
+            <div class="eco-node" data-zh>高校学联</div>
+            <div class="eco-node" data-en>University Networks</div>
+            <div class="eco-center" data-zh>熵惧科创生态</div>
+            <div class="eco-center" data-en>Entrophobia Alliance</div>
+            <div class="eco-node" data-zh>政府部门</div>
+            <div class="eco-node" data-en>Government Agencies</div>
+        </div>
+        
+        <div class="ecosystem-visual">
+            <div class="eco-node" data-zh>同业机构</div>
+            <div class="eco-node" data-en>Industry Partners</div>
+            <div class="eco-node" data-zh>专业服务商</div>
+            <div class="eco-node" data-en>Service Providers</div>
+        </div>
+        
+        <div class="pathways">
+            <div class="pathway-item">
+                <div class="num">01</div>
+                <h4 data-zh>聚才</h4>
+                <h4 data-en>Talent</h4>
+                <p data-zh>汇聚高端人才资源</p>
+                <p data-en>Attracting elite talent</p>
+            </div>
+            <div class="pathway-item">
+                <div class="num">02</div>
+                <h4 data-zh>造势</h4>
+                <h4 data-en>Momentum</h4>
+                <p data-zh>打造品牌影响力</p>
+                <p data-en>Building brand influence</p>
+            </div>
+            <div class="pathway-item">
+                <div class="num">03</div>
+                <h4 data-zh>生根</h4>
+                <h4 data-en>Rooting</h4>
+                <p data-zh>落地实体孵化</p>
+                <p data-en>Physical incubation</p>
+            </div>
+            <div class="pathway-item">
+                <div class="num">04</div>
+                <h4 data-zh>赋能</h4>
+                <h4 data-en>Empower</h4>
+                <p data-zh>双向价值释放</p>
+                <p data-en>Dual-value creation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <div class="section-label" data-zh>关于熵惧</div>
+                <div class="section-label" data-en>ABOUT US</div>
+                <h3 data-zh>从无序中发现价值</h3>
+                <h3 data-en>Finding Value in Disorder</h3>
+                <p data-zh>熵惧科技总部位于中国杭州，海外运营中心设在澳大利亚墨尔本，创始团队均毕业于澳洲八大名校。</p>
+                <p data-en>Headquartered in Hangzhou, China, with overseas operations in Melbourne, Australia. Our founding team graduated from Australia's Group of Eight universities.</p>
+                <p data-zh>我们致力于成为中澳科技与产业双向奔赴的"摆渡人"——于信息与资源的洪流中，为人才和项目架一座可依赖的桥。</p>
+                <p data-en>We strive to be the "ferryman" of China-Australia tech exchange — building a reliable bridge for talent and projects across the vast ocean of information and resources.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label" data-zh>双总部布局</div>
+                    <div class="stat-label" data-en>Dual Headquarters</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Go8</div>
+                    <div class="stat-label" data-zh>名校背景</div>
+                    <div class="stat-label" data-en>Elite Universities</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label" data-zh>核心业务板块</div>
+                    <div class="stat-label" data-en>Core Verticals</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label" data-zh>生态合作伙伴</div>
+                    <div class="stat-label" data-en>Ecosystem Partners</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy-section">
+        <div class="section-header">
+            <div class="section-label" data-zh>品牌理念</div>
+            <div class="section-label" data-en>OUR PHILOSOPHY</div>
+            <h2 class="section-title" data-zh>何为"熵惧"</h2>
+            <h2 class="section-title" data-en>What is Entrophobia?</h2>
+        </div>
+        <div class="philosophy-quote">
+            <span class="mark" data-zh>"熵</span><span class="mark" data-en>"Entropy</span>
+            <span data-zh>，代表无序中蕴含的无限可能；</span>
+            <span data-en>represents infinite possibilities within chaos;</span>
+            <span class="mark" data-zh>惧</span><span class="mark" data-en>phobia</span>
+            <span data-zh>，代表对未知的敬畏与审慎。</span>
+            <span data-en>represents awe and prudence toward the unknown."</span>
+        </div>
+        <div class="philosophy-explain">
+            <div class="phi-item">
+                <h4 data-zh>敬畏之心</h4>
+                <h4 data-en>Awe & Respect</h4>
+                <p data-zh>对未知保持审慎，不冒进不盲从</p>
+                <p data-en>Prudence in the face of uncertainty</p>
+            </div>
+            <div class="phi-item">
+                <h4 data-zh>确定性</h4>
+                <h4 data-en>Certainty</h4>
+                <p data-zh>在不确定中寻找确定</p>
+                <p data-en>Finding certainty in ambiguity</p>
+            </div>
+            <div class="phi-item">
+                <h4 data-zh>秩序</h4>
+                <h4 data-en>Order</h4>
+                <p data-zh>在混沌中建立秩序</p>
+                <p data-en>Building structure from chaos</p>
+            </div>
+            <div class="phi-item">
+                <h4 data-zh>连接</h4>
+                <h4 data-en>Connection</h4>
+                <p data-zh>为人才和项目架一座桥</p>
+                <p data-en>Bridging talent and opportunity</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <div class="section-label" data-zh>联系我们</div>
+            <div class="section-label" data-en>CONTACT US</div>
+            <h2 class="section-title" data-zh>开启合作</h2>
+            <h2 class="section-title" data-en>Start a Collaboration</h2>
+        </div>
+        <div class="contact-card">
+            <h3 data-zh>有合作想法？欢迎聊聊</h3>
+            <h3 data-en>Have an idea? Let's talk.</h3>
+            <p data-zh>无论是人才对接、项目合作还是生态共建，我们都期待与你连接</p>
+            <p data-en>Whether it's talent matching, project collaboration or ecosystem building, we'd love to connect</p>
+            <a href="mailto:contact@entrophobia.com" class="contact-email">
+                ✉️ contact@entrophobia.com
+            </a>
+            <div class="contact-locations">
+                <div class="location-item">
+                    <h5 data-zh>杭州总部</h5>
+                    <h5 data-en>Hangzhou HQ</h5>
+                    <p data-zh>中国 · 杭州</p>
+                    <p data-en>Hangzhou, China</p>
+                </div>
+                <div class="location-item">
+                    <h5 data-zh>墨尔本运营中心</h5>
+                    <h5 data-en>Melbourne Office</h5>
+                    <p data-zh>澳大利亚 · 墨尔本</p>
+                    <p data-en>Melbourne, Australia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Entrophobia 熵惧科技</div>
+            <p class="footer-text">
+                <span data-zh>© 2026 杭州熵惧科技有限公司. 中澳科创双向孵化平台</span>
+                <span data-en>© 2026 Hangzhou Entrophobia Technology Co., Ltd. China-Australia Sci-Tech Incubation Platform</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Language toggle
+        function toggleLang() {
+            const html = document.documentElement;
+            html.classList.toggle('en');
+            const isEn = html.classList.contains('en');
+            html.lang = isEn ? 'en' : 'zh-CN';
+            localStorage.setItem('lang', isEn ? 'en' : 'zh');
+        }
+        
+        // Auto-detect language
+        (function() {
+            const saved = localStorage.getItem('lang');
+            if (saved === 'en' || (!saved && navigator.language.startsWith('en'))) {
+                document.documentElement.classList.add('en');
+                document.documentElement.lang = 'en';
+            }
+        })();
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const links = document.querySelector('.nav-links');
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '100%';
+                links.style.left = '0';
+                links.style.right = '0';
+                links.style.background = 'var(--primary)';
+                links.style.padding = '1.5rem';
+                links.style.gap = '1rem';
+            }
+        }
+        
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.service-card, .pathway-item, .stat-item, .phi-item, .eco-node').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
